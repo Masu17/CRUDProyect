@@ -28,7 +28,7 @@ public class LocalController {
 
     /**
      *
-     * This method
+     * This method retrive the inputed data from the user
      *
      * */
 
