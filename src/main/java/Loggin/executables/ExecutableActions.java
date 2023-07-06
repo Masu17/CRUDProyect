@@ -1,4 +1,4 @@
-package login.executables;
+package Loggin.executables;
 
 import Main.interfaces.Application;
 import javafx.scene.control.Button;
@@ -19,15 +19,14 @@ public class ExecutableActions {
     /**
      * Method that validates user credentials
      *
-     * @param user     name entered by the user to log in the app
-     * @param password Password entered by the user that should get access the application
+     * @param userName     name entered by the user to log in the app
+     * @param userPassword Password entered by the user that should get access the application
      * @return True if the credentials are correct
      */
-    public static boolean validateCredentials(TextField user, TextField password) {
-
-        if (!user.getText().isEmpty() && !password.getText().isEmpty()) {
-            if (!user.getText().contains(" ") && !password.getText().contains(" ")) {
-                if (user.getText().trim().equals("admin") || user.getText().trim().equals("admin")) {
+    public static boolean validateCredentials(TextField userName, TextField userPassword) {
+        if (!userName.getText().isEmpty() && !userPassword.getText().isEmpty()) {
+            if (!userName.getText().contains(" ") && !userPassword.getText().contains(" ")) {
+                if (userName.getText().trim().equals("admin") || userName.getText().trim().equals("admin")) {
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al iniciar sesión:" +
@@ -60,12 +59,11 @@ public class ExecutableActions {
     /**
      * This method changes the stage of the application. Leaves the user to the first to the second stage.
      *
-     * @param btn button which is used to connect with the database
+     * @param button button which is used to connect with the database
      */
-    public static void nextStage(Button btn) {
+    public static void nextStage(Button button) {
         Application.showApplicationWindow();
-
-        Stage Login = (Stage) btn.getScene().getWindow();
+        Stage Login = (Stage) button.getScene().getWindow();
         Login.close();
     }
 

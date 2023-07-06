@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.loginController.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loggin.loginController.LoginController">
    <children>
       <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-image: url('../../imagenes/cool-background.png'); -fx-background-repeat: no-repeat;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,7 +41,7 @@
                <children>
                   <TextField fx:id="userLogin" layoutX="7.0" prefHeight="34.0" prefWidth="275.0" promptText="Usuario" />
                   <PasswordField fx:id="passwordLogin" layoutX="7.0" layoutY="61.0" prefHeight="34.0" prefWidth="275.0" promptText="Contraseña" />
-                  <Button fx:id="LoginAction" layoutX="73.0" layoutY="192.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="34.0" prefWidth="137.0" text="Iniciar sesión" />
+                  <Button fx:id="loggingButton" layoutX="73.0" layoutY="192.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="34.0" prefWidth="137.0" text="Iniciar sesión" />
                   <Group layoutX="58.0" layoutY="134.0">
                      <children>
                         <RadioButton fx:id="Cloud" layoutX="101.0" mnemonicParsing="false" selected="true" text="Nube">
@@ -49,10 +49,10 @@
                               <Font name="Ubuntu Bold Italic" size="15.0" />
                            </font>
                            <toggleGroup>
-                              <ToggleGroup fx:id="conexionLogin" />
+                              <ToggleGroup fx:id="connectionType" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="Local" mnemonicParsing="false" text="Local" toggleGroup="$conexionLogin">
+                        <RadioButton fx:id="Local" mnemonicParsing="false" text="Local" toggleGroup="$connectionType">
                            <font>
                               <Font name="Ubuntu Bold Italic" size="15.0" />
                            </font>

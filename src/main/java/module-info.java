@@ -8,11 +8,11 @@ module com.example.pruebados {
     opens Main.controllers to javafx.fxml;
     exports Main.controllers;
 
-    opens login.loginController to javafx.fxml;
-    exports login.loginController;
+    opens Loggin.loginController to javafx.fxml;
+    exports Loggin.loginController;
 
-    exports login.interfaces;
-    opens login.interfaces to javafx.fxml;
+    exports Loggin.interfaces;
+    opens Loggin.interfaces to javafx.fxml;
 
     opens Main.interfaces to javafx.fxml;
     exports Main.interfaces;
