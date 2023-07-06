@@ -46,5 +46,4 @@ public class Login extends Application {
         launch();
     }
 
-
 }
