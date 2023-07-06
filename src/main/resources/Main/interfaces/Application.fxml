@@ -50,7 +50,7 @@
                                         </LinearGradient>
                                     </fill>
                                 </Rectangle>
-                                <Group fx:id="despues" layoutX="13.0" layoutY="8.0" visible="false">
+                                <Group fx:id="after" layoutX="13.0" layoutY="8.0" visible="false">
                                     <children>
                                         <ImageView fitHeight="113.0" fitWidth="75.0" layoutX="63.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
                                             <image>
@@ -64,7 +64,7 @@
                                         </Text>
                                     </children>
                                 </Group>
-                                <Group fx:id="antes" layoutX="44.0" layoutY="62.0">
+                                <Group fx:id="before" layoutX="44.0" layoutY="62.0">
                                     <children>
                                         <Text scaleX="0.75" scaleY="0.75" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrastre un fichero para cargarlo en la base de datos.   Solo se aceptaran ficheros con extension .sql" wrappingWidth="229.7294921875">
                                             <font>

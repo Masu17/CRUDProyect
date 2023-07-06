@@ -32,8 +32,8 @@ import java.util.Map;
 public class applicationController {
     public Button loadFile;
     public TextArea textarea;
-    public Group antes;
-    public Group despues;
+    public Group before;
+    public Group after;
     public Button unloadFile;
     public AnchorPane left;
     public TableView mostrarTablas;
@@ -48,14 +48,17 @@ public class applicationController {
     public boolean insertBolean;
     public boolean deleteBolean;
     public boolean updateBolean;
-    public ChoiceBox pruebaDomingo;
 
     private Map<Integer, String> tables;
     private String tabla;
 
 
-    public void loadFileToBBD() {
+    /**
+     * This method creates the connection and gives feedback
+     * to the user, also it's the method that executes the recollection of data.
+     */
 
+    public void loadFileToBBD() {
         ExecutableActions exec = new ExecutableActions();
         JOptionPane.showMessageDialog(null, "Se van a leer los datos del fichero, " +
                 "cierre la ventana para continuar. Esta operacion puede tardar unos segundos, por favor, espere");
@@ -65,33 +68,41 @@ public class applicationController {
         showButtons();
     }
 
+    /**
+     * This method checks if the drag and drop have stored any file
+     * also verify that the extension is a .sql
+     * @param event this is the action event execution.
+     */
 
     public void onDragOver(DragEvent event) {
         Dragboard dragboard = event.getDragboard();
-
-        // Check if the dragboard has files and its extension equals .sql
+        // Check if the dragboard has files and its extension is .sql
         if (dragboard.hasFiles() && dragboard.getFiles().get(0).getName().toLowerCase().endsWith(".sql")) {
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();
     }
 
+    /**
+     * This
+     * @param event
+     */
+
     public void onDragDropped(DragEvent event) {
 
         Dragboard dragboard = event.getDragboard();
         boolean success = false;
 
-        // Verificar si el Dragboard contiene archivos
+        // Check if the Drag-Board has files
         if (dragboard.hasFiles()) {
             // Asignar el primer archivo de la lista de archivos arrastrados a la variable drag
             ExecutableActions.setDrag(dragboard.getFiles().get(0));
-            antes.setVisible(false);
-            despues.setVisible(true);
+            before.setVisible(false);
+            after.setVisible(true);
             loadFile.setDisable(false);
             unloadFile.setDisable(false);
             success = true;
         }
-
         // Configurar el estado de finalización de la operación de soltar
         event.setDropCompleted(success);
         event.consume(); // Consumir el evento
@@ -99,8 +110,8 @@ public class applicationController {
 
     public void unloadFileToBBD(ActionEvent actionEvent) {
         ExecutableActions.setDrag(null); // Restablecer la variable drag a null o a un valor inicial válido
-        antes.setVisible(true); // Restablecer la visibilidad de los componentes antes y despues según corresponda
-        despues.setVisible(false);
+        before.setVisible(true); // Restablecer la visibilidad de los componentes antes y despues según corresponda
+        after.setVisible(false);
         loadFile.setDisable(true); // Deshabilitar el botón loadFile si es necesario
         unloadFile.setDisable(true);
     }

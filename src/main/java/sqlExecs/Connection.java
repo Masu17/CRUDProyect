@@ -50,11 +50,11 @@ public class Connection {
     private static Map<String, String> retriveCloudData(){
         Map<String, String> mp = new HashMap<>();
         //Fill this with your cloud credentials.
-        mp.put("host","localhost"); // Your DDBB server hostName (localhost by default)
-        mp.put("port","3306"); //BBDD port (3306 for Mysql)
-        mp.put("database","DatabaseName"); //BBDD name
-        mp.put("username","root"); //Root user from database (Ex. root)
-        mp.put("password","root"); //Database password
+        mp.put("host","b1razub1r7yjyqcjk9wl-mysql.services.clever-cloud.com");
+        mp.put("port","3306");
+        mp.put("database","b1razub1r7yjyqcjk9wl");
+        mp.put("username","u6ltzdzhvtrb9ke3");
+        mp.put("password","Ujujltq5hhZe3sFcLPwV");
         return mp;
     }
 
