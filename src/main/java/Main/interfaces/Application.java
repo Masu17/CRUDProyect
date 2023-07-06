@@ -1,6 +1,6 @@
 package Main.interfaces;
 
-import Main.controllers.AplicativoController;
+import Main.controllers.applicationController;
 import Main.executables.ExecutableActions;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class Application {
 
-    private static AplicativoController controller;
+    private static applicationController controller;
     public static Map<Integer, Boolean> test = new HashMap<>();
     private static ExecutableActions exec = new ExecutableActions();
 

@@ -29,7 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class AplicativoController {
+public class applicationController {
     public Button loadFile;
     public TextArea textarea;
     public Group antes;
