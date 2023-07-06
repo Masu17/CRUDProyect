@@ -15,7 +15,7 @@ public class CRUD {
     private Map<String, String> nameType = new HashMap<>();
 
     /**
-     * This method extracts
+     * This method retrieve tables types from metadata contained in a selected table
      *
      * @param table
      */
