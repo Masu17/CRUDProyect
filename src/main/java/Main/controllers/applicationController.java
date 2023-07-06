@@ -95,7 +95,7 @@ public class applicationController {
 
         // Check if the Drag-Board has files
         if (dragboard.hasFiles()) {
-            // Asignar el primer archivo de la lista de archivos arrastrados a la variable drag
+            // Asignar el primer archivo de la lista de archivos arrastrados a la variable drag and
             ExecutableActions.setDrag(dragboard.getFiles().get(0));
             before.setVisible(false);
             after.setVisible(true);
