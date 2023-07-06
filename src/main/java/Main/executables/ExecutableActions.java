@@ -82,15 +82,15 @@ public class ExecutableActions {
         }
     }
 
-    public static Map<Integer, String> mostrarTablas(java.sql.Connection connection) {
+    public static Map<Integer, String> createDynamicButtons(java.sql.Connection connection) {
         Map<Integer, String> buttons = new HashMap<>();
         try {
 
             Statement st = connection.createStatement();
-            ResultSet resultado = st.executeQuery("SHOW TABLES;");
+            ResultSet result = st.executeQuery("SHOW TABLES;");
 
-            for (int i = 0; resultado.next(); i++) {
-                buttons.put(i, resultado.getString(1));
+            for (int i = 0; result.next(); i++) {
+                buttons.put(i, result.getString(1));
             }
 
         } catch (SQLException e) {

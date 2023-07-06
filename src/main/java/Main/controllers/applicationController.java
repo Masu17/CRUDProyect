@@ -61,7 +61,7 @@ public class applicationController {
                 "cierre la ventana para continuar. Esta operacion puede tardar unos segundos, por favor, espere");
         exec.uploadFile();
         Application.collectData();
-        tables = ExecutableActions.mostrarTablas(sqlExecs.Connection.getConnection());
+        tables = ExecutableActions.createDynamicButtons(sqlExecs.Connection.getConnection());
         showButtons();
     }
 
@@ -69,11 +69,11 @@ public class applicationController {
     public void onDragOver(DragEvent event) {
         Dragboard dragboard = event.getDragboard();
 
-        // Verificar si la fuente del gesto de arrastre no es el mismo textArea y si el Dragboard contiene archivos
+        // Check if the dragboard has files and its extension equals .sql
         if (dragboard.hasFiles() && dragboard.getFiles().get(0).getName().toLowerCase().endsWith(".sql")) {
             event.acceptTransferModes(TransferMode.COPY);
         }
-        event.consume(); //onDragOver Consumir el evento
+        event.consume();
     }
 
     public void onDragDropped(DragEvent event) {

@@ -200,9 +200,9 @@ public class CRUD {
                 i++;
             }
 
-            //Ejecutar la consulta
+            // Execute query
             statement.executeUpdate();
-            //Cerramos declaracion
+            // Close statement
             statement.close();
 
             applicationController.selectTables(table);
