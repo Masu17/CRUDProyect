@@ -1,6 +1,6 @@
-package login.interfaces;
+package Loggin.interfaces;
 
-import login.loginController.LocalController;
+import Loggin.loginController.LocalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,11 +26,11 @@ public class Local {
 
     public static void setScene(Stage stage){
         try {
-            FXMLLoader newFXMLLoader = new FXMLLoader(Login.class.getResource("LoginLocalConnection.fxml"));
+            FXMLLoader newFXMLLoader = new FXMLLoader(Loggin.class.getResource("LoginLocalConnection.fxml"));
             Scene scene = new Scene(newFXMLLoader.load());
             controller = newFXMLLoader.getController();
             addListeners();
-            stage.setTitle("login");
+            stage.setTitle("Loggin");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package login.interfaces;
+package Loggin.interfaces;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Login extends Application {
+public class Loggin extends Application {
 
     /**
      * The main interface of the application. This method works on the new stage.
@@ -17,9 +17,9 @@ public class Login extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("Login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Loggin.class.getResource("Login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("login");
+            stage.setTitle("Loggin");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

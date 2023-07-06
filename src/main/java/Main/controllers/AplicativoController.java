@@ -1,7 +1,7 @@
 package Main.controllers;
 
 
-import login.interfaces.Login;
+import Loggin.interfaces.Loggin;
 import Main.executables.ExecutableActions;
 import Main.sqlExecs.CRUD;
 import Main.interfaces.Application;
@@ -209,7 +209,7 @@ public class AplicativoController {
         Stage logOut = (Stage) btnLogOut.getScene().getWindow();
         logOut.close();
 
-        Login log = new Login();
+        Loggin log = new Loggin();
         log.setLogingStage(btnLogOut);
     }
 

@@ -1,7 +1,7 @@
-package login.loginController;
+package Loggin.loginController;
 
-import login.executables.ExecutableActions;
-import login.interfaces.Login;
+import Loggin.executables.ExecutableActions;
+import Loggin.interfaces.Loggin;
 import sqlExecs.Connection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,10 +27,8 @@ public class LocalController {
     public Button btnLogOut;
 
     /**
-     *
-     * This method retrive the inputed data from the user
-     *
-     *
+     * This method retrive the input data from the user
+     * and sends the information to the Connection method
      * */
 
     @FXML
@@ -59,12 +57,17 @@ public class LocalController {
         goToLogIn();
     }
 
-    public void goToLogIn(){
+    /**
+     * This method sends changes the Local Stage
+     * to the Login Stage
+     */
 
+    public void goToLogIn(){
+        //recovers the LocalStage and closes it
         Stage logOut = (Stage) btnLogOut.getScene().getWindow();
         logOut.close();
-
-        Login log = new Login();
+        //executes the new Logging Stage.
+        Loggin log = new Loggin();
         log.setLogingStage(btnLogOut);
     }
 }
