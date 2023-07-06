@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.loginController.LoginController">
+   <children>
+      <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-image: url('../../imagenes/cool-background.png'); -fx-background-repeat: no-repeat;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="636.0" fitWidth="1524.0" layoutX="-254.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/cool-background.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="114.0" fitWidth="340.0" layoutX="137.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/LogoCMTransparente-BrilloExt.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="170.0" layoutY="264.0" prefHeight="34.0" prefWidth="275.0" text="BBDD Cesar Manrique" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="179.0" layoutY="298.0" prefHeight="23.0" prefWidth="257.0" text="Powered by AguereCoders" textAlignment="JUSTIFY" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Pane layoutX="621.0" layoutY="146.0" prefHeight="235.0" prefWidth="282.0" AnchorPane.bottomAnchor="255.0" AnchorPane.topAnchor="146.0">
+               <children>
+                  <TextField fx:id="userLogin" layoutX="7.0" prefHeight="34.0" prefWidth="275.0" promptText="Usuario" />
+                  <PasswordField fx:id="passwordLogin" layoutX="7.0" layoutY="61.0" prefHeight="34.0" prefWidth="275.0" promptText="Contraseña" />
+                  <Button fx:id="LoginAction" layoutX="73.0" layoutY="192.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="34.0" prefWidth="137.0" text="Iniciar sesión" />
+                  <Group layoutX="58.0" layoutY="134.0">
+                     <children>
+                        <RadioButton fx:id="Cloud" layoutX="101.0" mnemonicParsing="false" selected="true" text="Nube">
+                           <font>
+                              <Font name="Ubuntu Bold Italic" size="15.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="conexionLogin" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="Local" mnemonicParsing="false" text="Local" toggleGroup="$conexionLogin">
+                           <font>
+                              <Font name="Ubuntu Bold Italic" size="15.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </Group>
+               </children>
+            </Pane>
+            <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="487.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/icons8_Google_Wallet_50px.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="369.0" layoutY="599.0" prefHeight="23.0" prefWidth="314.0" text="Diseñado por Ignacio Barrios &amp;  Samuel Yunez" textFill="WHITE" AnchorPane.bottomAnchor="14.0">
+               <font>
+                  <Font name="Ubuntu Italic" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
