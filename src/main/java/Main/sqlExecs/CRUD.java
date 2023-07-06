@@ -7,15 +7,23 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class executes all CRUD methods
+ */
 public class CRUD {
 
     private Map<String, String> nameType = new HashMap<>();
 
-    private void sacarMetadatos(String tabla) {
+    /**
+     * This method extracts
+     *
+     * @param table
+     */
+    private void extractMetadata(String table) {
         try {
 
             ResultSet resultSet = sqlExecs.Connection.getConnection().createStatement().executeQuery(
-                    "SELECT * FROM " + tabla + ";");
+                    "SELECT * FROM " + table + ";");
 
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
@@ -36,7 +44,7 @@ public class CRUD {
 
         try {
 
-            sacarMetadatos(tabla);
+            extractMetadata(tabla);
 
             StringBuilder consulta = new StringBuilder("INSERT INTO " + tabla + " VALUES (");
 
@@ -82,7 +90,7 @@ public class CRUD {
     public void delete(Map<String, String> datosInsert, String tabla, AplicativoController aplicativoController) {
 
         try {
-            sacarMetadatos(tabla);
+            extractMetadata(tabla);
 
             StringBuilder sql = new StringBuilder("DELETE FROM " + tabla + " WHERE ");
 
@@ -138,7 +146,7 @@ public class CRUD {
 //
 //            [columna1, condicion, columnaCondion, condicion];
 
-            sacarMetadatos(tabla);
+            extractMetadata(tabla);
 
             StringBuilder sql = new StringBuilder(
                     "UPDATE " + tabla + " SET "

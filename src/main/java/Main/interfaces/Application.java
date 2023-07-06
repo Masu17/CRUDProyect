@@ -133,15 +133,15 @@ public class Application {
      *
      * @param userInput
      * @param columnTableName
-     * @return True
+     * @return True if the text contained in textfield fullfils all the conditions
      */
 
     public static boolean createRegex(String userInput, String columnTableName) {
 
         ArrayList<Object> arrayList = exec.getCondicionesColumnas().get(columnTableName);
-        boolean longCorrecta = false;
+        boolean properLength = false;
 
-        // Crear el patrón regex dinámicamente
+        // Creates a regex dinamically
         StringBuilder regexBuilder = new StringBuilder();
         StringBuilder regexSpecialChars = new StringBuilder();
         boolean containsNumbers = (boolean) arrayList.get(0);
@@ -155,39 +155,41 @@ public class Application {
         } else {
             regexBuilder.append("(?=.*\\d)(?=.*[a-zA-Z]).*");
         }
+
         Pattern patternRegexSpecial = Pattern.compile("a");
         if (containsSpecialChars) {
             regexSpecialChars.append("|[.,\\\\-]");
             patternRegexSpecial = Pattern.compile(regexBuilder.toString());
         }
 
-        // Patrón para permitir números decimales
+        // Pattern to allow decimal numbers
         regexBuilder.append("|\\d+\\.\\d+");
 
-        // Obtener el regex final
+        // Obtain final regex
         Pattern patternRegex = Pattern.compile(regexBuilder.toString());
 
         if ((boolean) arrayList.get(3)) {
-            // Comprobar que la palabra sea menor o igual a la longitud establecida en el mapa
+            // Check word's length that should be less or equal to the length set on the map
             if ((int) arrayList.get(4) >= userInput.length()) {
-                longCorrecta = true;
+                properLength = true;
             }
         } else {
-            // Comprobar que la palabra tiene exactamente la misma longitud que la establecida en el mapa
+            // Check that the word's length is the same length as the one set on the map
             if ((int) arrayList.get(4) == userInput.length()) {
-                longCorrecta = true;
+                properLength = true;
             }
         }
 
-        // Comprobar si la cadena coincide con el patrón regex
+        // Check if string matches with regex pattern
         boolean matches = patternRegex.matcher(userInput).matches();
         if (containsSpecialChars) {
             boolean matchesSpecial = patternRegexSpecial.matcher(userInput).find();
             return matches && matchesSpecial && userInput.length() != 0;
         }
 
-        // Invertir el find de la palabra y comprobar que la longitud sea correcta
+        // check if the text contained int textfield matches with the regex, and the lenght is correct and
+        // length of the text is not 0 and return true or false
 
-        return matches && longCorrecta && userInput.length() != 0;
+        return matches && properLength && userInput.length() != 0;
     }
 }
