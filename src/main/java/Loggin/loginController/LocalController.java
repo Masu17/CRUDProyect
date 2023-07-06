@@ -19,12 +19,12 @@ import java.util.Map;
 public class LocalController {
     //These are the components that define the fxml.
     @FXML
-    public TextField hostLocal;
-    public PasswordField passwordLocal;
-    public TextField puertoLocal;
-    public TextField usuarioLocal;
-    public Button LocalDBConnect;
-    public Button btnLogOut;
+    public TextField localHost;
+    public PasswordField localPassword;
+    public TextField localPort;
+    public TextField localUser;
+    public Button localDBConnect;
+    public Button logOutButton;
 
     /**
      * This method retrive the input data from the user
@@ -33,27 +33,23 @@ public class LocalController {
 
     @FXML
     protected void createConnection(){
-        Map<String, String > mp = new HashMap<>();
-        mp.put("host",hostLocal.getText());
-        mp.put("port",puertoLocal.getText());
-        mp.put("username",usuarioLocal.getText());
-        mp.put("password",passwordLocal.getText());
-
-        Connection.execLocalConnection(mp);
-
+        Map<String, String > localMap = new HashMap<>();
+        localMap.put("host", localHost.getText());
+        localMap.put("port", localPort.getText());
+        localMap.put("username", localUser.getText());
+        localMap.put("password", localPassword.getText());
+        Connection.execLocalConnection(localMap);
         if(Connection.getConnection() != null){
-            ExecutableActions.nextStage(LocalDBConnect);
+            ExecutableActions.nextStage(localDBConnect);
         }
     }
 
     /**
-     *
      * This method executes a button OnAction
      * that makes the stage change to Loging interface
-     *
      */
 
-    public void LogOut() {
+    public void logOut() {
         goToLogIn();
     }
 
@@ -61,13 +57,13 @@ public class LocalController {
      * This method sends changes the Local Stage
      * to the Login Stage
      */
-
+    //Change this method to executableActions
     public void goToLogIn(){
         //recovers the LocalStage and closes it
-        Stage logOut = (Stage) btnLogOut.getScene().getWindow();
+        Stage logOut = (Stage) logOutButton.getScene().getWindow();
         logOut.close();
         //executes the new Logging Stage.
         Loggin log = new Loggin();
-        log.setLogingStage(btnLogOut);
+        log.setLogingStage(logOutButton);
     }
 }

@@ -44,10 +44,10 @@ public class Local {
      * */
 
     private static void addListeners(){
-        controller.hostLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.passwordLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.puertoLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.usuarioLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localHost.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localPassword.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localPort.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localUser.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
     }
 
     /**
@@ -56,8 +56,8 @@ public class Local {
      * */
 
     protected static void activateButton() {
-        boolean fieldIsEmpty = controller.hostLocal.getText().isEmpty() || controller.passwordLocal.getText().isEmpty()
-                || controller.puertoLocal.getText().isEmpty() || controller.usuarioLocal.getText().isEmpty();
-        controller.LocalDBConnect.setDisable(fieldIsEmpty);
+        boolean fieldIsEmpty = controller.localHost.getText().isEmpty() || controller.localPassword.getText().isEmpty()
+                || controller.localPort.getText().isEmpty() || controller.localUser.getText().isEmpty();
+        controller.localDBConnect.setDisable(fieldIsEmpty);
     }
 }

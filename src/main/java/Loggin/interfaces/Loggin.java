@@ -29,19 +29,18 @@ public class Loggin extends Application {
 
     /**
      * This method is used to return to the logging stage from the rest of the application
-     * @param btnLogOut The button that execute the action of login out,
+     * @param logoutButton The button that execute the action of login out,
      *                  it's needed to know the current stage of the stage
      */
-    public void setLogingStage(Button btnLogOut) {
-
-        Stage currentStage = (Stage) btnLogOut.getScene().getWindow();
+    public void setLogingStage(Button logoutButton) {
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
         currentStage.close();
         start(currentStage);
-
     }
+
     /**
      * This is the main method that execute all the application
-     * */
+     **/
     public static void main(String[] args) {
         launch();
     }
