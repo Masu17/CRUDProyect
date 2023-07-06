@@ -17,7 +17,7 @@ public class CRUD {
     /**
      * This method retrieve tables types from metadata contained in a selected table
      *
-     * @param table
+     * @param table Selected table
      */
     private void extractMetadata(String table) {
         try {
