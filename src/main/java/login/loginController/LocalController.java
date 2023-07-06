@@ -30,6 +30,7 @@ public class LocalController {
      *
      * This method retrive the inputed data from the user
      *
+     *
      * */
 
     @FXML
@@ -46,6 +47,13 @@ public class LocalController {
             ExecutableActions.nextStage(LocalDBConnect);
         }
     }
+
+    /**
+     *
+     * This method executes a button OnAction
+     * that makes the stage change to Loging interface
+     *
+     */
 
     public void LogOut() {
         goToLogIn();
