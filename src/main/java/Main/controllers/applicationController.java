@@ -71,6 +71,7 @@ public class applicationController {
     /**
      * This method checks if the drag and drop have stored any file
      * also verify that the extension is a .sql
+     *
      * @param event this is the action event execution.
      */
 
@@ -84,18 +85,17 @@ public class applicationController {
     }
 
     /**
-     * This
+     * This method
+     *
      * @param event
      */
 
     public void onDragDropped(DragEvent event) {
-
         Dragboard dragboard = event.getDragboard();
         boolean success = false;
-
         // Check if the Drag-Board has files
         if (dragboard.hasFiles()) {
-            // Asignar el primer archivo de la lista de archivos arrastrados a la variable drag and
+            // Assign the file to the variable drag and reset the interface of the drag and drop menu.
             ExecutableActions.setDrag(dragboard.getFiles().get(0));
             before.setVisible(false);
             after.setVisible(true);
@@ -103,15 +103,21 @@ public class applicationController {
             unloadFile.setDisable(false);
             success = true;
         }
-        // Configurar el estado de finalización de la operación de soltar
+        // Set the new state of the droped file
         event.setDropCompleted(success);
-        event.consume(); // Consumir el evento
+        // Close the event
+        event.consume();
     }
 
-    public void unloadFileToBBD(ActionEvent actionEvent) {
-        ExecutableActions.setDrag(null); // Reset drag variable to null
-        // Restore component's visibility as appropiate
-        before.setVisible(true);
+    /**
+     * This method enables the button that execute the .sql query
+     * also this method changes the interface of the drag and drop menu
+     * to give feedback to the user
+     */
+
+    public void unloadFileToBBD() {
+        ExecutableActions.setDrag(null); // Restablecer la variable drag a null o a un valor inicial válido
+        before.setVisible(true); // Restablecer la visibilidad de los componentes antes y despues según corresponda
         after.setVisible(false);
         // Disable loadfile button if its needed
         loadFile.setDisable(true);
@@ -119,29 +125,38 @@ public class applicationController {
     }
 
 
+    /**
+     * This method creates dynamic buttons depending on the
+     * tables of the database.
+     */
+
     @FXML
     private void showButtons() {
-
-        int numberOfButtons = tables.size(); // Number of buttons to create
-
-        for (int i = 0; i < numberOfButtons; i++) {
+        int numButtons = tables.size(); // Número de botones a crear
+        for (int i = 0; i < numButtons; i++) {
             Button button = new Button("btnTabla " + (i + 1));
             buttonStyle(button, i);
-            int lastId = i;
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    home.setVisible(false);
-                    showTables.setVisible(true);
-                    showTables.setId(tables.get(lastId));
-                    inserting.getChildren().clear();
-                    selectTables(button.getText());
-                }
+            int finalI = i;
+            // This lambda creates all the buttons,
+            // setting them visible and assigning the respective id.
+            button.setOnAction(event -> {
+                home.setVisible(false);
+                showTables.setVisible(true);
+                showTables.setId(tables.get(finalI));
+                inserting.getChildren().clear();
+                selectTables(button.getText());
             });
-
+            //add the buttons to their panel
             left.getChildren().add(button);
         }
     }
+
+    /**
+     * This method resets the dynamic table container, retrive all the table data
+     * and creates the table.
+     *
+     * @param tableName this is the name of the table that is going to be shown.
+     */
 
     public void selectTables(String tableName) {
         try {
@@ -196,6 +211,13 @@ public class applicationController {
         }
     }
 
+    /**
+     * This method sets the style of the dynamic buttons
+     *
+     * @param button this is the button that is going to be styled
+     * @param i      this is the index of the button
+     */
+
     public void buttonStyle(Button button, int i) {
         button.setLayoutX(0);
         button.setLayoutY((i + 1) * 80);
@@ -207,24 +229,30 @@ public class applicationController {
 
     }
 
+    /**
+     * This method is used to go back to the main menu of the application
+     */
+
     public void comeBack() {
         home.setVisible(true);
         showTables.setVisible(false);
     }
 
+    /**
+     * This method is used to go back to the login menu
+     */
+
     public void LogOut() {
-        goToLogIn();
-    }
-
-    public void goToLogIn() {
-
         Stage logOut = (Stage) btnLogOut.getScene().getWindow();
         logOut.close();
-
         Loggin log = new Loggin();
         log.setLogingStage(btnLogOut);
     }
 
+    /**
+     * This method is used to execute the action on the insert button,
+     * after all the texfields are filled successfully
+     */
 
     public void insertData() {
 

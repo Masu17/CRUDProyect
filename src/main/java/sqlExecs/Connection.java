@@ -52,9 +52,9 @@ public class Connection {
         //Fill this with your cloud credentials.
         mp.put("host","localhost"); // Your DDBB server hostName (localhost by default)
         mp.put("port","3306"); //BBDD port (3306 for Mysql)
-        mp.put("database","DatabaseName"); //BBDD name
+        mp.put("database","DatabaseName"); //BBDD name (Ex. test)
         mp.put("username","root"); //Root user from database (Ex. root)
-        mp.put("password","root"); //Database password
+        mp.put("password","root"); //Database password (Ex. root)
         return mp;
     }
 
