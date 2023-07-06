@@ -95,7 +95,7 @@
                                 <Font name="Ubuntu Bold" size="24.0" />
                             </font>
                         </Label>
-                        <Button fx:id="loadFile" disable="true" layoutX="1965.0" layoutY="678.0" mnemonicParsing="false" onAction="#loadFileToBBD" prefHeight="34.0" prefWidth="137.0" scaleX="1.5" scaleY="1.5" text="Cargar archivo">
+                        <Button fx:id="loadFile" disable="true" layoutX="1965.0" layoutY="678.0" mnemonicParsing="false" onAction="#loadNewScene" prefHeight="34.0" prefWidth="137.0" scaleX="1.5" scaleY="1.5" text="Cargar archivo">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -140,7 +140,7 @@
                         <Button fx:id="insert" layoutX="1633.0" layoutY="606.0" mnemonicParsing="false" onAction="#insertData" prefHeight="42.0" prefWidth="142.0" text="Insertar Datos" />
                         <Button fx:id="delete" layoutX="1985.0" layoutY="606.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="42.0" prefWidth="142.0" text="Eliminar Datos" />
                         <Button fx:id="update" layoutX="1810.0" layoutY="606.0" mnemonicParsing="false" onAction="#updateData" prefHeight="42.0" prefWidth="142.0" text="Cambiar Datos" />
-                        <TableView fx:id="mostrarTablas" layoutX="1385.0" layoutY="153.0" prefHeight="404.0" prefWidth="744.0" />
+                        <TableView fx:id="tableviewShowTables" layoutX="1385.0" layoutY="153.0" prefHeight="404.0" prefWidth="744.0" />
                           <ImageView fitHeight="50.0" fitWidth="56.0" layoutX="1254.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                               <image>
                                   <Image url="@../../imagenes/icons8_Google_Wallet_50px.png" />

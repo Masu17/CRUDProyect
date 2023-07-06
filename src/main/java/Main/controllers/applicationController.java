@@ -36,7 +36,7 @@ public class applicationController {
     public Group after;
     public Button unloadFile;
     public AnchorPane left;
-    public TableView mostrarTablas;
+    public TableView tableviewShowTables;
     public AnchorPane home;
     public AnchorPane showTables;
     public Button btnTabla;
@@ -58,7 +58,7 @@ public class applicationController {
      * to the user, also it's the method that executes the recollection of data.
      */
 
-    public void loadFileToBBD() {
+    public void loadNewScene() {
         ExecutableActions exec = new ExecutableActions();
         JOptionPane.showMessageDialog(null, "Se van a leer los datos del fichero, " +
                 "cierre la ventana para continuar. Esta operacion puede tardar unos segundos, por favor, espere");
@@ -109,10 +109,12 @@ public class applicationController {
     }
 
     public void unloadFileToBBD(ActionEvent actionEvent) {
-        ExecutableActions.setDrag(null); // Restablecer la variable drag a null o a un valor inicial válido
-        before.setVisible(true); // Restablecer la visibilidad de los componentes antes y despues según corresponda
+        ExecutableActions.setDrag(null); // Reset drag variable to null
+        // Restore component's visibility as appropiate
+        before.setVisible(true);
         after.setVisible(false);
-        loadFile.setDisable(true); // Deshabilitar el botón loadFile si es necesario
+        // Disable loadfile button if its needed
+        loadFile.setDisable(true);
         unloadFile.setDisable(true);
     }
 
@@ -120,18 +122,18 @@ public class applicationController {
     @FXML
     private void showButtons() {
 
-        int numButtons = tables.size(); // Número de botones a crear
+        int numberOfButtons = tables.size(); // Number of buttons to create
 
-        for (int i = 0; i < numButtons; i++) {
+        for (int i = 0; i < numberOfButtons; i++) {
             Button button = new Button("btnTabla " + (i + 1));
             buttonStyle(button, i);
-            int finalI = i;
+            int lastId = i;
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     home.setVisible(false);
                     showTables.setVisible(true);
-                    showTables.setId(tables.get(finalI));
+                    showTables.setId(tables.get(lastId));
                     inserting.getChildren().clear();
                     selectTables(button.getText());
                 }
@@ -144,29 +146,29 @@ public class applicationController {
     public void selectTables(String tableName) {
         try {
 
-            // Borrar las columnas existentes en el TableView
-            mostrarTablas.getColumns().clear();
+            // Delete existing columns in the TableView
+            tableviewShowTables.getColumns().clear();
 
-            // Borrar las filas existentes en el TableView
-            mostrarTablas.getItems().clear();
+            // Delete existing rows in the TableView
+            tableviewShowTables.getItems().clear();
 
-            // Crear una declaración para ejecutar consultas SQL en la conexión establecida
+            // Create a statement to execute queries
             Statement statement = sqlExecs.Connection.getConnection().createStatement();
 
-            // Ejecutar consulta SQL para obtener los datos de la tabla
+            // Execute query to get table data
             String sqlQuery = "SELECT * FROM " + tableName;
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-            // Obtener metadatos de la tabla
+            // Get table metadata
             int columnCount = resultSet.getMetaData().getColumnCount();
 
-            // Crear columnas en el TableView
+            // Create columns on in the Tableview
             for (int i = 1; i <= columnCount; i++) {
                 int columnIndex = i;
-                // Crear una columna en el TableView con el nombre obtenido de los metadatos
+                // Create a column in the TableView with the name retrieved from metadata
                 TableColumn<Object[], Object> column = new TableColumn<>(resultSet.getMetaData().getColumnName(i));
 
-                // Configurar el valor de la celda utilizando una expresión lambda
+                // Setting cell value using a lambda expression
                 column.setCellValueFactory(cellData -> {
                     Object[] row = cellData.getValue();
                     return (row != null && columnIndex - 1 < row.length) ?
@@ -174,23 +176,22 @@ public class applicationController {
                             new SimpleObjectProperty<>(null);
                 });
 
-                // Agregar la columna al TableView
-                mostrarTablas.getColumns().add(column);
+                // Add column to the TableView
+                tableviewShowTables.getColumns().add(column);
             }
 
-            // Agregar filas de datos al TableView
+            // Add data rows to the TableView
             while (resultSet.next()) {
-                // Crear un arreglo para almacenar los datos de una fila
+                // Create an array to store data of a row
                 Object[] row = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
-                    // Obtener el valor de cada columna en la fila actual y agregarlo al arreglo
+                    // Obtain each column value from current row and add it to array
                     row[i - 1] = resultSet.getString(i);
                 }
-                // Agregar la fila al TableView
-                mostrarTablas.getItems().add(row);
+                // Add row to the TableView
+                tableviewShowTables.getItems().add(row);
             }
         } catch (Exception e) {
-            // Manejo de excepciones en caso de errores
             System.out.println("Algo salió mal");
         }
     }
