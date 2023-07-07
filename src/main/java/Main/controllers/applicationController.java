@@ -85,8 +85,8 @@ public class applicationController {
     }
 
     /**
-     * This method
-     *
+     * This method executes the drag and drop of the file,
+     * also it gives feedback to the user.
      * @param event
      */
 
