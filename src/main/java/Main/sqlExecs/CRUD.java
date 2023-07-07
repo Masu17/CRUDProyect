@@ -1,21 +1,29 @@
 package Main.sqlExecs;
 
-import Main.controllers.AplicativoController;
+import Main.controllers.applicationController;
 
 import javax.swing.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class executes all CRUD methods
+ */
 public class CRUD {
 
     private Map<String, String> nameType = new HashMap<>();
 
-    private void sacarMetadatos(String tabla) {
+    /**
+     * This method retrieve tables types from metadata contained in a selected table
+     *
+     * @param table Selected table
+     */
+    private void extractMetadata(String table) {
         try {
 
             ResultSet resultSet = sqlExecs.Connection.getConnection().createStatement().executeQuery(
-                    "SELECT * FROM " + tabla + ";");
+                    "SELECT * FROM " + table + ";");
 
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
@@ -32,67 +40,81 @@ public class CRUD {
         }
     }
 
-    public void insert(Map<String, String> datosInsert, String tabla, AplicativoController aplicativoController) {
+    /**
+     * Insert data into a selected table
+     *
+     * @param insertData            data contained on input textfields
+     * @param table                 Selected table
+     * @param applicationController instance of applicationController class
+     */
+    public void insert(Map<String, String> insertData, String table, applicationController applicationController) {
 
         try {
 
-            sacarMetadatos(tabla);
+            extractMetadata(table);
 
-            StringBuilder consulta = new StringBuilder("INSERT INTO " + tabla + " VALUES (");
+            StringBuilder query = new StringBuilder("INSERT INTO " + table + " VALUES (");
 
-            for (int i = 0; i < datosInsert.size(); i++) {
-                consulta.append((i != datosInsert.size() - 1) ? "?, " : "?)");
+            for (int i = 0; i < insertData.size(); i++) {
+                query.append((i != insertData.size() - 1) ? "?, " : "?)");
             }
 
-            PreparedStatement declaracion = sqlExecs.Connection.getConnection().prepareStatement(consulta.toString());
+            PreparedStatement statement = sqlExecs.Connection.getConnection().prepareStatement(query.toString());
 
             int i = 1;
-            for (Map.Entry<String, String> entrada : datosInsert.entrySet()) {
+            for (Map.Entry<String, String> input : insertData.entrySet()) {
 
-                if (nameType.get(entrada.getKey()).equals("INT")) {
-                    declaracion.setInt(i, Integer.parseInt(entrada.getValue()));
-                } else if (nameType.get(entrada.getKey()).equals("VARCHAR") || nameType.get(entrada.getKey()).equals("CHAR")) {
-                    declaracion.setString(i, entrada.getValue());
-                } else if (nameType.get(entrada.getKey()).equals("DECIMAL")) {
-                    declaracion.setDouble(i, Double.parseDouble(entrada.getValue()));
+                if (nameType.get(input.getKey()).equals("INT")) {
+                    statement.setInt(i, Integer.parseInt(input.getValue()));
+                } else if (nameType.get(input.getKey()).equals("VARCHAR") || nameType.get(input.getKey()).equals("CHAR")) {
+                    statement.setString(i, input.getValue());
+                } else if (nameType.get(input.getKey()).equals("DECIMAL")) {
+                    statement.setDouble(i, Double.parseDouble(input.getValue()));
                 }
                 i++;
             }
 
-            // Ejecutar la consulta
-            declaracion.executeUpdate();
-            //Cerramos declaracion
-            declaracion.close();
+            // Execute query
+            statement.executeUpdate();
+            // Close statement
+            statement.close();
 
-            aplicativoController.selectTables(tabla);
+            applicationController.selectTables(table);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datos introducidos no validos, porfavor.");
         }
 
-        for (Map.Entry<String, String> entrada : datosInsert.entrySet()) {
+        for (Map.Entry<String, String> input : insertData.entrySet()) {
 
-            System.out.println("Nombre columna: " + entrada.getKey()); // Nombre columna
-            System.out.println("Valor introducido  por el usuario: " + entrada.getValue()); // Valor introducido por usuario
-            System.out.println("Tipo de dato: " + nameType.get(entrada.getKey()));
+            System.out.println("Nombre columna: " + input.getKey()); // Column name
+            System.out.println("Valor introducido  por el usuario: " + input.getValue()); // Value entered by user
+            System.out.println("Tipo de dato: " + nameType.get(input.getKey()));
 
         }
     }
 
-    public void delete(Map<String, String> datosInsert, String tabla, AplicativoController aplicativoController) {
+    /**
+     * Delete data into a selected table
+     *
+     * @param insertData            data contained on input textfields
+     * @param table                 Selected table
+     * @param applicationController instance of applicationController class
+     */
+    public void delete(Map<String, String> insertData, String table, applicationController applicationController) {
 
         try {
-            sacarMetadatos(tabla);
+            extractMetadata(table);
 
-            StringBuilder sql = new StringBuilder("DELETE FROM " + tabla + " WHERE ");
+            StringBuilder sql = new StringBuilder("DELETE FROM " + table + " WHERE ");
 
             int i = 0;
-            for (Map.Entry<String, String> entrada : datosInsert.entrySet()) {
-                if (entrada.getValue().length() != 0) {
+            for (Map.Entry<String, String> input : insertData.entrySet()) {
+                if (input.getValue().length() != 0) {
                     if (i != 0) {
-                        sql.append(" AND ").append(entrada.getKey()).append(" = ?");
+                        sql.append(" AND ").append(input.getKey()).append(" = ?");
                     } else {
-                        sql.append(entrada.getKey()).append(" = ?");
+                        sql.append(input.getKey()).append(" = ?");
                     }
                     i++;
                 }
@@ -100,26 +122,26 @@ public class CRUD {
 
             i = 1;
 
-            PreparedStatement declaracion = sqlExecs.Connection.getConnection().prepareStatement(sql.toString());
+            PreparedStatement statement = sqlExecs.Connection.getConnection().prepareStatement(sql.toString());
 
-            for (Map.Entry<String, String> entrada : datosInsert.entrySet()) {
-                if (entrada.getValue().length() != 0) {
-                    if (nameType.get(entrada.getKey()).equals("INT")) {
-                        declaracion.setInt(i, Integer.parseInt(entrada.getValue()));
-                    } else if (nameType.get(entrada.getKey()).equals("VARCHAR") || nameType.get(entrada.getKey()).equals("CHAR")) {
-                        declaracion.setString(i, entrada.getValue());
-                    } else if (nameType.get(entrada.getKey()).equals("DECIMAL")) {
-                        declaracion.setDouble(i, Double.parseDouble(entrada.getValue()));
+            for (Map.Entry<String, String> input : insertData.entrySet()) {
+                if (input.getValue().length() != 0) {
+                    if (nameType.get(input.getKey()).equals("INT")) {
+                        statement.setInt(i, Integer.parseInt(input.getValue()));
+                    } else if (nameType.get(input.getKey()).equals("VARCHAR") || nameType.get(input.getKey()).equals("CHAR")) {
+                        statement.setString(i, input.getValue());
+                    } else if (nameType.get(input.getKey()).equals("DECIMAL")) {
+                        statement.setDouble(i, Double.parseDouble(input.getValue()));
                     }
                 }
             }
 
-            // Ejecutar la consulta
-            declaracion.executeUpdate();
-            //Cerramos declaracion
-            declaracion.close();
+            // Execute query
+            statement.executeUpdate();
+            //Close statement
+            statement.close();
 
-            aplicativoController.selectTables(tabla);
+            applicationController.selectTables(table);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datos introducidos no validos, porfavor.");
@@ -129,28 +151,31 @@ public class CRUD {
 
     }
 
-    public void update(Map<String, String> datosUpdate, String tabla, AplicativoController aplicativoController) {
+
+    /**
+     * Update data from a selected table
+     *
+     * @param insertData data contained on input textfields
+     * @param table Selected table
+     * @param applicationController instance of applicationController class
+     */
+    public void update(Map<String, String> insertData, String table, applicationController applicationController) {
 
         try {
 
-//             columna1 --> condicion
-//             columnaCondicion --> condicion
-//
-//            [columna1, condicion, columnaCondion, condicion];
-
-            sacarMetadatos(tabla);
+            extractMetadata(table);
 
             StringBuilder sql = new StringBuilder(
-                    "UPDATE " + tabla + " SET "
+                    "UPDATE " + table + " SET "
             );
 
             int i = 0;
-            for (Map.Entry<String, String> entrada : datosUpdate.entrySet()) {
-                if (entrada.getValue().length() != 0) {
+            for (Map.Entry<String, String> input : insertData.entrySet()) {
+                if (input.getValue().length() != 0) {
                     if (i != 0) {
-                        sql.append(" WHERE ").append(entrada.getKey()).append(" = ?");
+                        sql.append(" WHERE ").append(input.getKey()).append(" = ?");
                     } else {
-                        sql.append(entrada.getKey()).append(" = ?");
+                        sql.append(input.getKey()).append(" = ?");
                     }
                     i++;
                 }
@@ -159,28 +184,28 @@ public class CRUD {
 
             i = 1;
 
-            PreparedStatement declaracion = sqlExecs.Connection.getConnection().prepareStatement(sql.toString());
+            PreparedStatement statement = sqlExecs.Connection.getConnection().prepareStatement(sql.toString());
 
-            for (Map.Entry<String, String> entrada : datosUpdate.entrySet()) {
-                if (entrada.getValue().length() != 0) {
-                    if (nameType.get(entrada.getKey()).equals("INT")) {
-                        declaracion.setInt(i, Integer.parseInt(entrada.getValue()));
-                    } else if (nameType.get(entrada.getKey()).equals("VARCHAR") || nameType.get(entrada.getKey()).equals("CHAR")) {
-                        declaracion.setString(i, entrada.getValue());
-                    } else if (nameType.get(entrada.getKey()).equals("DECIMAL")) {
-                        declaracion.setDouble(i, Double.parseDouble(entrada.getValue()));
+            for (Map.Entry<String, String> input : insertData.entrySet()) {
+                if (input.getValue().length() != 0) {
+                    if (nameType.get(input.getKey()).equals("INT")) {
+                        statement.setInt(i, Integer.parseInt(input.getValue()));
+                    } else if (nameType.get(input.getKey()).equals("VARCHAR") || nameType.get(input.getKey()).equals("CHAR")) {
+                        statement.setString(i, input.getValue());
+                    } else if (nameType.get(input.getKey()).equals("DECIMAL")) {
+                        statement.setDouble(i, Double.parseDouble(input.getValue()));
                     }
                 }
 
                 i++;
             }
 
-            //Ejecutar la consulta
-            declaracion.executeUpdate();
-            //Cerramos declaracion
-            declaracion.close();
+            // Execute query
+            statement.executeUpdate();
+            // Close statement
+            statement.close();
 
-            aplicativoController.selectTables(tabla);
+            applicationController.selectTables(table);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos introducidos no validos, porfavor.");

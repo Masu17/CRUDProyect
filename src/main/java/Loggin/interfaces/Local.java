@@ -1,6 +1,6 @@
-package login.interfaces;
+package Loggin.interfaces;
 
-import login.loginController.LocalController;
+import Loggin.loginController.LocalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,11 +26,11 @@ public class Local {
 
     public static void setScene(Stage stage){
         try {
-            FXMLLoader newFXMLLoader = new FXMLLoader(Login.class.getResource("LoginLocalConnection.fxml"));
+            FXMLLoader newFXMLLoader = new FXMLLoader(Loggin.class.getResource("LoginLocalConnection.fxml"));
             Scene scene = new Scene(newFXMLLoader.load());
             controller = newFXMLLoader.getController();
             addListeners();
-            stage.setTitle("login");
+            stage.setTitle("Loggin");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -44,10 +44,10 @@ public class Local {
      * */
 
     private static void addListeners(){
-        controller.hostLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.passwordLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.puertoLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
-        controller.usuarioLocal.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localHost.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localPassword.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localPort.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
+        controller.localUser.textProperty().addListener((observable, oldValue, newValues) -> activateButton() );
     }
 
     /**
@@ -56,8 +56,8 @@ public class Local {
      * */
 
     protected static void activateButton() {
-        boolean fieldIsEmpty = controller.hostLocal.getText().isEmpty() || controller.passwordLocal.getText().isEmpty()
-                || controller.puertoLocal.getText().isEmpty() || controller.usuarioLocal.getText().isEmpty();
-        controller.LocalDBConnect.setDisable(fieldIsEmpty);
+        boolean fieldIsEmpty = controller.localHost.getText().isEmpty() || controller.localPassword.getText().isEmpty()
+                || controller.localPort.getText().isEmpty() || controller.localUser.getText().isEmpty();
+        controller.localDBConnect.setDisable(fieldIsEmpty);
     }
 }

@@ -13,18 +13,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.loginController.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="854.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Loggin.loginController.LoginController">
    <children>
-      <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-image: url('../../imagenes/cool-background.png'); -fx-background-repeat: no-repeat;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="503.0" prefWidth="382.0" style="-fx-background-image: url('images/cool-background.png'); -fx-background-repeat: no-repeat;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="636.0" fitWidth="1524.0" layoutX="-254.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/cool-background.png" />
+                  <Image url="@../../images/cool-background.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="114.0" fitWidth="340.0" layoutX="137.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/LogoCMTransparente-BrilloExt.png" />
+                  <Image url="@../../images/LogoCMTransparente-BrilloExt.png" />
                </image>
             </ImageView>
             <Label alignment="CENTER" layoutX="170.0" layoutY="264.0" prefHeight="34.0" prefWidth="275.0" text="BBDD Cesar Manrique" textFill="WHITE">
@@ -41,7 +41,7 @@
                <children>
                   <TextField fx:id="userLogin" layoutX="7.0" prefHeight="34.0" prefWidth="275.0" promptText="Usuario" />
                   <PasswordField fx:id="passwordLogin" layoutX="7.0" layoutY="61.0" prefHeight="34.0" prefWidth="275.0" promptText="Contraseña" />
-                  <Button fx:id="LoginAction" layoutX="73.0" layoutY="192.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="34.0" prefWidth="137.0" text="Iniciar sesión" />
+                  <Button fx:id="loggingButton" layoutX="73.0" layoutY="192.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="34.0" prefWidth="137.0" text="Iniciar sesión" />
                   <Group layoutX="58.0" layoutY="134.0">
                      <children>
                         <RadioButton fx:id="Cloud" layoutX="101.0" mnemonicParsing="false" selected="true" text="Nube">
@@ -49,10 +49,10 @@
                               <Font name="Ubuntu Bold Italic" size="15.0" />
                            </font>
                            <toggleGroup>
-                              <ToggleGroup fx:id="conexionLogin" />
+                              <ToggleGroup fx:id="connectionType" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="Local" mnemonicParsing="false" text="Local" toggleGroup="$conexionLogin">
+                        <RadioButton fx:id="Local" mnemonicParsing="false" text="Local" toggleGroup="$connectionType">
                            <font>
                               <Font name="Ubuntu Bold Italic" size="15.0" />
                            </font>
@@ -63,7 +63,7 @@
             </Pane>
             <ImageView fitHeight="63.0" fitWidth="63.0" layoutX="487.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/icons8_Google_Wallet_50px.png" />
+                  <Image url="@../../images/icons8_Google_Wallet_50px.png" />
                </image>
             </ImageView>
             <Label alignment="CENTER" layoutX="369.0" layoutY="599.0" prefHeight="23.0" prefWidth="314.0" text="Diseñado por Ignacio Barrios &amp;  Samuel Yunez" textFill="WHITE" AnchorPane.bottomAnchor="14.0">

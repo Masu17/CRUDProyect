@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * This class contains all methods that are executed when the user clicks on a button
  */
 
 public class ExecutableActions {
@@ -26,7 +26,7 @@ public class ExecutableActions {
 
     public static String connectionWay;
 
-    private Map<String, ArrayList<Object>> condicionesColumnas = new HashMap<>();
+    private Map<String, ArrayList<Object>> columnConditions = new HashMap<>();
 
     public static void setConnectionWay(String connectionWay) {
         ExecutableActions.connectionWay = connectionWay;
@@ -36,10 +36,13 @@ public class ExecutableActions {
         ExecutableActions.drag = drag;
     }
 
-    public Map<String, ArrayList<Object>> getCondicionesColumnas() {
-        return condicionesColumnas;
+    public Map<String, ArrayList<Object>> getColumnConditions() {
+        return columnConditions;
     }
 
+    /**
+     * This method executes all queries contained in the file selected by the user
+     */
     public void uploadFile() {
         try (Scanner output = new Scanner(drag)) {
 
@@ -57,6 +60,8 @@ public class ExecutableActions {
 
                 if (query.contains(";")) {
 
+                    //This sentence is used to avoid the creation of the database in the cloud when has been
+                    //already created by default
                     if (connectionWay.equals("Cloud")) {
                         if (!query.contains("CREATE DATABASE") && !query.contains("USE")) {
                             Application.reloadText(query);
@@ -82,15 +87,20 @@ public class ExecutableActions {
         }
     }
 
-    public static Map<Integer, String> mostrarTablas(java.sql.Connection connection) {
+    /**
+     * This method is used to create buttons dynamically using the tables of the database
+     *
+     * @param connection Connection to the database
+     */
+    public static Map<Integer, String> createDynamicButtons(java.sql.Connection connection) {
         Map<Integer, String> buttons = new HashMap<>();
         try {
 
             Statement st = connection.createStatement();
-            ResultSet resultado = st.executeQuery("SHOW TABLES;");
+            ResultSet result = st.executeQuery("SHOW TABLES;");
 
-            for (int i = 0; resultado.next(); i++) {
-                buttons.put(i, resultado.getString(1));
+            for (int i = 0; result.next(); i++) {
+                buttons.put(i, result.getString(1));
             }
 
         } catch (SQLException e) {
@@ -99,8 +109,11 @@ public class ExecutableActions {
         return buttons;
     }
 
-    //recuperar tablas y generar mapa:
-
+    /**
+     * Retrieve tables and generate a map with the name of the table and the columns before show them
+     *
+     * @param connectionDB connection to the database
+     */
     public void showTables(java.sql.Connection connectionDB) {
 
         try {
@@ -110,7 +123,7 @@ public class ExecutableActions {
 
             while (resultSetTableNames.next()) {
                 String tableName = resultSetTableNames.getString(1);
-                seleccionarColumnasTablas(tableName, connectionDB);
+                selectColumnsTables(tableName, connectionDB);
             }
 
         } catch (SQLException e) {
@@ -120,32 +133,39 @@ public class ExecutableActions {
 
     }
 
-    private void seleccionarColumnasTablas(String tabla, java.sql.Connection connectionDB) {
+
+    /**
+     * Retrieve columns from a table and generate a map with the name of the column and the values
+     *
+     * @param table        name of the table
+     * @param connectionDB connection to the database
+     */
+    private void selectColumnsTables(String table, java.sql.Connection connectionDB) {
 
         try {
-            String columname;
+            String columName;
 
             Statement st = connectionDB.createStatement();
-            ResultSet resultSetTableData = st.executeQuery("SELECT * FROM " + tabla);
+            ResultSet resultSetTableData = st.executeQuery("SELECT * FROM " + table);
             ResultSetMetaData metaDataTable = resultSetTableData.getMetaData();
 
 
             for (int i = 1; i <= metaDataTable.getColumnCount(); i++) {
 
-                resultSetTableData = st.executeQuery("SELECT * FROM " + tabla);
-                columname = metaDataTable.getColumnName(i) + ":" + tabla;
-                ArrayList<String> valoresColumna = new ArrayList<>();
+                resultSetTableData = st.executeQuery("SELECT * FROM " + table);
+                columName = metaDataTable.getColumnName(i) + ":" + table;
+                ArrayList<String> columnValues = new ArrayList<>();
                 ArrayList<Object> values = new ArrayList<>();
                 System.out.println(metaDataTable.getColumnName(i));
 
                 while (resultSetTableData.next()) {
                     System.out.println(resultSetTableData.getString(i));
-                    valoresColumna.add(resultSetTableData.getString(i));
+                    columnValues.add(resultSetTableData.getString(i));
                 }
 
-                testData(values, valoresColumna);
+                testData(values, columnValues);
 
-                condicionesColumnas.put(columname, values);
+                columnConditions.put(columName, values);
             }
 
         }catch (IndexOutOfBoundsException e){
@@ -155,43 +175,51 @@ public class ExecutableActions {
         }
     }
 
-    private ArrayList<Object> testData(ArrayList<Object> values, ArrayList<String> valoresColumna) throws ArrayIndexOutOfBoundsException {
+    /**
+     * This method is used to test the data of the columns and generate a map with the name of the column and 5 values
+     *
+     * @param values        arraylist with check values
+     * @param columnValues  arraylist with the values of the column
+     * @return              values arraylist
+     * @throws ArrayIndexOutOfBoundsException
+     */
+    private ArrayList<Object> testData(ArrayList<Object> values, ArrayList<String> columnValues) throws ArrayIndexOutOfBoundsException {
 
-        boolean haveNumero = false;
-        boolean haveLetra = false;
-        boolean havePunt = false;
-        boolean longVariable = false;
-        int length = valoresColumna.get(1).length();
+        boolean haveNumber = false;
+        boolean haveText = false;
+        boolean haveSpecial = false;
+        boolean variableLength = false;
+        int length = columnValues.get(1).length();
 
         //regex:
         String havenum = "[0-9]";
-        String haveLet = "[a-zA-Z]";
-        String havePut = "\\W";
+        String haveTxt = "[a-zA-Z]";
+        String haveSpe = "\\W";
         Pattern ptNum = Pattern.compile(havenum);
-        Pattern ptLet = Pattern.compile(haveLet);
-        Pattern ptPut = Pattern.compile(havePut);
+        Pattern ptLet = Pattern.compile(haveTxt);
+        Pattern ptPut = Pattern.compile(haveSpe);
 
-        for (int i = 0; i < valoresColumna.size(); i++) {
+        for (int i = 0; i < columnValues.size(); i++) {
 
-            Matcher mtNum = ptNum.matcher(valoresColumna.get(i));
-            Matcher mtLet = ptLet.matcher(valoresColumna.get(i));
-            Matcher mtPut = ptPut.matcher(valoresColumna.get(i));
+            Matcher mtNum = ptNum.matcher(columnValues.get(i));
+            Matcher mtTxt = ptLet.matcher(columnValues.get(i));
+            Matcher mtSpe = ptPut.matcher(columnValues.get(i));
 
-            haveNumero = mtNum.find();
-            haveLetra = mtLet.find();
-            havePunt = mtPut.find();
+            haveNumber = mtNum.find();
+            haveText = mtTxt.find();
+            haveSpecial = mtSpe.find();
 
-            if (valoresColumna.get(i).length() > length) {
-                longVariable = true;
-                length = valoresColumna.get(i).length();
+            if (columnValues.get(i).length() > length) {
+                variableLength = true;
+                length = columnValues.get(i).length();
             }
 
         }
 
-        values.add(haveNumero);
-        values.add(haveLetra);
-        values.add(havePunt);
-        values.add(longVariable);
+        values.add(haveNumber);
+        values.add(haveText);
+        values.add(haveSpecial);
+        values.add(variableLength);
         values.add(length);
         return values;
     }

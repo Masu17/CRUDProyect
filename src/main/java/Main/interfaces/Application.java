@@ -1,6 +1,6 @@
 package Main.interfaces;
 
-import Main.controllers.AplicativoController;
+import Main.controllers.applicationController;
 import Main.executables.ExecutableActions;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,8 +20,8 @@ import java.util.regex.Pattern;
 
 public class Application {
 
-    private static AplicativoController controller;
-    public static Map<Integer, Boolean> test = new HashMap<>();
+    private static applicationController controller;
+    public static Map<Integer, Boolean> textFields = new HashMap<>();
     private static ExecutableActions exec = new ExecutableActions();
 
     /**
@@ -89,11 +89,11 @@ public class Application {
             text.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 if (createRegex(text.getText(), text.getId().substring(0, text.getId().lastIndexOf(":")))) {
-                    test.put(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)), true);
+                    textFields.put(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)), true);
                     activateButton(textField);
-                } else if (test.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1))) != null
-                        && !test.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)))) {
-                    test.remove(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)));
+                } else if (textFields.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1))) != null
+                        && !textFields.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)))) {
+                    textFields.remove(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)));
                 } else {
                     controller.btnColumnSubmission.setDisable(true);
                 }
@@ -112,9 +112,9 @@ public class Application {
 
         boolean isDisabled = true;
 
-        if (textField.size() == test.size()) {
-            for (int i = 1; i <= test.size(); i++) {
-                if (!test.get(i)) {
+        if (textField.size() == textFields.size()) {
+            for (int i = 1; i <= textFields.size(); i++) {
+                if (!textFields.get(i)) {
                     isDisabled = true;
                     break;
                 } else {
@@ -133,15 +133,15 @@ public class Application {
      *
      * @param userInput
      * @param columnTableName
-     * @return True
+     * @return True if the text contained in textfield fullfils all the conditions
      */
 
     public static boolean createRegex(String userInput, String columnTableName) {
 
-        ArrayList<Object> arrayList = exec.getCondicionesColumnas().get(columnTableName);
-        boolean longCorrecta = false;
+        ArrayList<Object> arrayList = exec.getColumnConditions().get(columnTableName);
+        boolean properLength = false;
 
-        // Crear el patrón regex dinámicamente
+        // Creates a regex dinamically
         StringBuilder regexBuilder = new StringBuilder();
         StringBuilder regexSpecialChars = new StringBuilder();
         boolean containsNumbers = (boolean) arrayList.get(0);
@@ -155,39 +155,41 @@ public class Application {
         } else {
             regexBuilder.append("(?=.*\\d)(?=.*[a-zA-Z]).*");
         }
+
         Pattern patternRegexSpecial = Pattern.compile("a");
         if (containsSpecialChars) {
             regexSpecialChars.append("|[.,\\\\-]");
             patternRegexSpecial = Pattern.compile(regexBuilder.toString());
         }
 
-        // Patrón para permitir números decimales
+        // Pattern to allow decimal numbers
         regexBuilder.append("|\\d+\\.\\d+");
 
-        // Obtener el regex final
+        // Obtain final regex
         Pattern patternRegex = Pattern.compile(regexBuilder.toString());
 
         if ((boolean) arrayList.get(3)) {
-            // Comprobar que la palabra sea menor o igual a la longitud establecida en el mapa
+            // Check word's length that should be less or equal to the length set on the map
             if ((int) arrayList.get(4) >= userInput.length()) {
-                longCorrecta = true;
+                properLength = true;
             }
         } else {
-            // Comprobar que la palabra tiene exactamente la misma longitud que la establecida en el mapa
+            // Check that the word's length is the same length as the one set on the map
             if ((int) arrayList.get(4) == userInput.length()) {
-                longCorrecta = true;
+                properLength = true;
             }
         }
 
-        // Comprobar si la cadena coincide con el patrón regex
+        // Check if string matches with regex pattern
         boolean matches = patternRegex.matcher(userInput).matches();
         if (containsSpecialChars) {
             boolean matchesSpecial = patternRegexSpecial.matcher(userInput).find();
             return matches && matchesSpecial && userInput.length() != 0;
         }
 
-        // Invertir el find de la palabra y comprobar que la longitud sea correcta
+        // check if the text contained int textfield matches with the regex, and the lenght is correct and
+        // length of the text is not 0 and return true or false
 
-        return matches && longCorrecta && userInput.length() != 0;
+        return matches && properLength && userInput.length() != 0;
     }
 }

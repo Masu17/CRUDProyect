@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="720.0" minWidth="1200.0" prefHeight="1054.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.controllers.AplicativoController">
+<BorderPane minHeight="720.0" minWidth="1200.0" prefHeight="1054.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.controllers.applicationController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -27,7 +27,7 @@
                     <children>
                         <ImageView fitHeight="1133.0" fitWidth="2203.0" layoutX="124.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../imagenes/cool-background.png" />
+                                <Image url="@../../images/cool-background.png" />
                             </image>
                         </ImageView>
                         <Pane layoutX="1613.0" layoutY="366.0" prefHeight="182.0" prefWidth="350.0" scaleX="2.0" scaleY="2.0">
@@ -50,11 +50,11 @@
                                         </LinearGradient>
                                     </fill>
                                 </Rectangle>
-                                <Group fx:id="despues" layoutX="13.0" layoutY="8.0" visible="false">
+                                <Group fx:id="after" layoutX="13.0" layoutY="8.0" visible="false">
                                     <children>
                                         <ImageView fitHeight="113.0" fitWidth="75.0" layoutX="63.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
                                             <image>
-                                                <Image url="@../../imagenes/files-and-folders.png" />
+                                                <Image url="@../../images/files-and-folders.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="96.0" layoutY="79.435546875" scaleX="0.75" scaleY="0.75" strokeType="OUTSIDE" strokeWidth="0.0" text="Fichero introducido correctamente! Haz click en el botón inferior" textAlignment="CENTER" wrappingWidth="237.7294921875">
@@ -64,7 +64,7 @@
                                         </Text>
                                     </children>
                                 </Group>
-                                <Group fx:id="antes" layoutX="44.0" layoutY="62.0">
+                                <Group fx:id="before" layoutX="44.0" layoutY="62.0">
                                     <children>
                                         <Text scaleX="0.75" scaleY="0.75" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrastre un fichero para cargarlo en la base de datos.   Solo se aceptaran ficheros con extension .sql" wrappingWidth="229.7294921875">
                                             <font>
@@ -87,7 +87,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="56.0" layoutX="1254.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../imagenes/icons8_Google_Wallet_50px.png" />
+                                <Image url="@../../images/icons8_Google_Wallet_50px.png" />
                             </image>
                         </ImageView>
                         <Label alignment="CENTER" layoutX="1135.0" layoutY="86.0" prefHeight="50.0" prefWidth="328.0" text="BBDD Cesar Manrique" textFill="WHITE">
@@ -95,7 +95,7 @@
                                 <Font name="Ubuntu Bold" size="24.0" />
                             </font>
                         </Label>
-                        <Button fx:id="loadFile" disable="true" layoutX="1965.0" layoutY="678.0" mnemonicParsing="false" onAction="#loadFileToBBD" prefHeight="34.0" prefWidth="137.0" scaleX="1.5" scaleY="1.5" text="Cargar archivo">
+                        <Button fx:id="loadFile" disable="true" layoutX="1965.0" layoutY="678.0" mnemonicParsing="false" onAction="#loadNewScene" prefHeight="34.0" prefWidth="137.0" scaleX="1.5" scaleY="1.5" text="Cargar archivo">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -128,7 +128,7 @@
                     <children>
                   <ImageView fitHeight="1133.0" fitWidth="2203.0" layoutX="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagenes/cool-background.png" />
+                        <Image url="@../../images/cool-background.png" />
                      </image>
                   </ImageView>
                         <Label alignment="CENTER" layoutX="1059.0" layoutY="1003.0" prefHeight="23.0" prefWidth="340.0" text="Diseñado por Ignacio Barrios &amp; Samuel Yunez" textFill="WHITE">
@@ -140,10 +140,10 @@
                         <Button fx:id="insert" layoutX="1633.0" layoutY="606.0" mnemonicParsing="false" onAction="#insertData" prefHeight="42.0" prefWidth="142.0" text="Insertar Datos" />
                         <Button fx:id="delete" layoutX="1985.0" layoutY="606.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="42.0" prefWidth="142.0" text="Eliminar Datos" />
                         <Button fx:id="update" layoutX="1810.0" layoutY="606.0" mnemonicParsing="false" onAction="#updateData" prefHeight="42.0" prefWidth="142.0" text="Cambiar Datos" />
-                        <TableView fx:id="mostrarTablas" layoutX="1385.0" layoutY="153.0" prefHeight="404.0" prefWidth="744.0" />
+                        <TableView fx:id="tableviewShowTables" layoutX="1385.0" layoutY="153.0" prefHeight="404.0" prefWidth="744.0" />
                           <ImageView fitHeight="50.0" fitWidth="56.0" layoutX="1254.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                  <Image url="@../../imagenes/icons8_Google_Wallet_50px.png" />
+                                  <Image url="@../../images/icons8_Google_Wallet_50px.png" />
                               </image>
                           </ImageView>
                           <Label alignment="CENTER" layoutX="1135.0" layoutY="86.0" prefHeight="50.0" prefWidth="328.0" text="BBDD Cesar Manrique" textFill="WHITE">
