@@ -7,14 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class creates the connection with a mysql database
+ * This class is used to create a connection with the database.
+ * It has two methods to create a connection, one of them is authomatical and the other one is not.
+ * The authomatical method is used to create a connection with the cloud database.
+ * The non authomatical method is used to create a connection with a local database.
+ *
+ * @version 1.0
+ * @since 2021-04-11
  */
 public class Connection {
 
     private static java.sql.Connection connection;
 
     /**
-     *
      * Connection attribute getter
      *
      * @return connection
@@ -24,7 +29,8 @@ public class Connection {
     }
 
     /**
-     *  This method executes all method that create a connection with the cloud database.
+     * This method is used to create a connection by an authomatical way.
+     * Users must select the database radiobutton.
      */
     public static void execCloudConnection(){
         Map<String, String> mp = retriveCloudData();
@@ -35,7 +41,7 @@ public class Connection {
      * This method is used to create a connection by a non authomatical way.
      * Users must enter all credentials by themselves.
      *
-     * @param mp Map of strings created by the values entered by the user
+     * @param mp Map of strings which was created in previous method.
      */
     public static void execLocalConnection(Map<String, String> mp){
         createConnection(mp,false);
@@ -43,7 +49,7 @@ public class Connection {
 
     /**
      *
-     * This method creates a Map with all necessary data to create a connection with cloud.
+     * This method is used to create a map of strings with the credentials
      *
      * @return Map of strings (type of date : value)
      */
@@ -59,6 +65,7 @@ public class Connection {
     }
 
     /**
+     * This method creates a connection with the database.
      *
      * @param mp Map of strings which was created in previous method.
      * @param connectionType True = Cloud, false = local connection

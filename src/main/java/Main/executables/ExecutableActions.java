@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * This class contains all methods that are executed when the user clicks on a button
  */
 
 public class ExecutableActions {
@@ -40,6 +40,9 @@ public class ExecutableActions {
         return columnConditions;
     }
 
+    /**
+     * This method executes all queries contained in the file selected by the user
+     */
     public void uploadFile() {
         try (Scanner output = new Scanner(drag)) {
 
@@ -84,6 +87,11 @@ public class ExecutableActions {
         }
     }
 
+    /**
+     * This method is used to create buttons dynamically using the tables of the database
+     *
+     * @param connection Connection to the database
+     */
     public static Map<Integer, String> createDynamicButtons(java.sql.Connection connection) {
         Map<Integer, String> buttons = new HashMap<>();
         try {
@@ -102,11 +110,10 @@ public class ExecutableActions {
     }
 
     /**
-     * Retrieve tables y generate a map with the name of the table and the columns
+     * Retrieve tables and generate a map with the name of the table and the columns before show them
      *
      * @param connectionDB connection to the database
      */
-
     public void showTables(java.sql.Connection connectionDB) {
 
         try {
@@ -126,6 +133,13 @@ public class ExecutableActions {
 
     }
 
+
+    /**
+     * Retrieve columns from a table and generate a map with the name of the column and the values
+     *
+     * @param table        name of the table
+     * @param connectionDB connection to the database
+     */
     private void selectColumnsTables(String table, java.sql.Connection connectionDB) {
 
         try {
@@ -161,6 +175,14 @@ public class ExecutableActions {
         }
     }
 
+    /**
+     * This method is used to test the data of the columns and generate a map with the name of the column and 5 values
+     *
+     * @param values        arraylist with check values
+     * @param columnValues  arraylist with the values of the column
+     * @return              values arraylist
+     * @throws ArrayIndexOutOfBoundsException
+     */
     private ArrayList<Object> testData(ArrayList<Object> values, ArrayList<String> columnValues) throws ArrayIndexOutOfBoundsException {
 
         boolean haveNumber = false;
@@ -180,12 +202,12 @@ public class ExecutableActions {
         for (int i = 0; i < columnValues.size(); i++) {
 
             Matcher mtNum = ptNum.matcher(columnValues.get(i));
-            Matcher mtLet = ptLet.matcher(columnValues.get(i));
-            Matcher mtPut = ptPut.matcher(columnValues.get(i));
+            Matcher mtTxt = ptLet.matcher(columnValues.get(i));
+            Matcher mtSpe = ptPut.matcher(columnValues.get(i));
 
             haveNumber = mtNum.find();
-            haveText = mtLet.find();
-            haveSpecial = mtPut.find();
+            haveText = mtTxt.find();
+            haveSpecial = mtSpe.find();
 
             if (columnValues.get(i).length() > length) {
                 variableLength = true;

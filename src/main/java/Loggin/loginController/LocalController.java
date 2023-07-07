@@ -29,8 +29,7 @@ public class LocalController {
     /**
      * This method retrive the input data from the user
      * and sends the information to the Connection method
-     * */
-
+     **/
     @FXML
     protected void createConnection(){
         Map<String, String > localMap = new HashMap<>();
