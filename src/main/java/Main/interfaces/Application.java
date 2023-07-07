@@ -138,7 +138,7 @@ public class Application {
 
     public static boolean createRegex(String userInput, String columnTableName) {
 
-        ArrayList<Object> arrayList = exec.getCondicionesColumnas().get(columnTableName);
+        ArrayList<Object> arrayList = exec.getColumnConditions().get(columnTableName);
         boolean properLength = false;
 
         // Creates a regex dinamically
