@@ -297,6 +297,11 @@ public class applicationController {
 
     }
 
+    /**
+     * This method is used to execute the action on the delete button,
+     * this action have no need to get all the texfields fulfilled
+     */
+
     public void deleteData() {
 
         /*Definimos estas variables para luego poder dirigirnos al método del insert, delete o update
@@ -341,6 +346,15 @@ public class applicationController {
 
     }
 
+    /**
+     * this method gives style to the labels and textfields
+     * that are created dynamically
+     * @param lb label
+     * @param tf textfield
+     * @param i index
+     * @param gr group
+     */
+
     private void groupStyle(Label lb, TextField tf, int i, Group gr) {
         gr.getChildren().add(lb);
         gr.getChildren().add(tf);
@@ -348,11 +362,25 @@ public class applicationController {
         gr.setLayoutY(80 * (i - 1));
     }
 
+    /**
+     * this method is used to give style to the labels
+     * @param label label
+     * @param columName name of the column, so we can set it as the label text
+     */
+
     private void labelStyle(Label label, String columName) {
         label.setLayoutY(7);
         label.setFont(Font.font("Ubuntu", 17));
         label.setText(columName);
     }
+
+    /**
+     * this method is used to give style to the textfields
+     * @param textField textfield
+     * @param id id of the textfield, this id is created with special needs
+     *           so we can later extract the name of the column and the name of the table
+     * @param i index of the textfield
+     */
 
     private void textfieldStyle(TextField textField, String id, int i) {
         textField.setLayoutY(25);
@@ -360,6 +388,11 @@ public class applicationController {
         textField.setPromptText(id.substring(0, id.indexOf(":")));
         textField.setFont(Font.font("Ubuntu", 17));
     }
+
+    /**
+     * This method is in charge of defining what action is going to be executed
+     * depending on the button that is pressed (insert, delete or update).
+     */
 
     public void EnvioColumnas() {
 
@@ -375,6 +408,10 @@ public class applicationController {
         }
     }
 
+    /**
+     * This method is used to extract all the textfields that are created dynamically
+     * @return an arraylist of all the textfields present in the inserting pane.
+     */
 
     public ArrayList<TextField> extraerTextfields() {
 
@@ -397,17 +434,18 @@ public class applicationController {
         return textFields;
     }
 
-    //esto es generico para cualquier consulta
+    /**
+     * this is a generic method that is used to extract the data from the textfields
+     * and put it in a map, so we can later use it in the CRUD class.
+     * @param textFields arraylist of textfields.
+     * @return a map with the data of the textfields
+     */
     public Map<String, String> recogerDatos(ArrayList<TextField> textFields) {
 
         Map<String, String> datosFinales = new LinkedHashMap<>();
 
         for (TextField textData :
                 textFields) {
-
-            //columna:tabla:id
-            //tabla:id
-            //tabla
 
             tabla = textData.getId().substring(textData.getId().indexOf(":") + 1);
             tabla = tabla.substring(0, tabla.indexOf(":"));
@@ -418,6 +456,13 @@ public class applicationController {
         return datosFinales;
     }
 
+    /**
+     * this method is used to execute the action on the update button,
+     * this action have no need to get all the texfields fulfilled,
+     * in this case we use a choicebox to select the column that we want to update
+     * @param actionEvent event
+     * @throws SQLException exception
+     */
 
     public void updateData(ActionEvent actionEvent) throws SQLException {
         /*Definimos estas variables para luego poder dirigirnos al método del insert, delete o update
