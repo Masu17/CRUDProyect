@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class Application {
 
     private static applicationController controller;
-    public static Map<Integer, Boolean> test = new HashMap<>();
+    public static Map<Integer, Boolean> textFields = new HashMap<>();
     private static ExecutableActions exec = new ExecutableActions();
 
     /**
@@ -89,11 +89,11 @@ public class Application {
             text.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 if (createRegex(text.getText(), text.getId().substring(0, text.getId().lastIndexOf(":")))) {
-                    test.put(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)), true);
+                    textFields.put(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)), true);
                     activateButton(textField);
-                } else if (test.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1))) != null
-                        && !test.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)))) {
-                    test.remove(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)));
+                } else if (textFields.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1))) != null
+                        && !textFields.get(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)))) {
+                    textFields.remove(Integer.parseInt(text.getId().substring(text.getId().lastIndexOf(":") + 1)));
                 } else {
                     controller.btnColumnSubmission.setDisable(true);
                 }
@@ -112,9 +112,9 @@ public class Application {
 
         boolean isDisabled = true;
 
-        if (textField.size() == test.size()) {
-            for (int i = 1; i <= test.size(); i++) {
-                if (!test.get(i)) {
+        if (textField.size() == textFields.size()) {
+            for (int i = 1; i <= textFields.size(); i++) {
+                if (!textFields.get(i)) {
                     isDisabled = true;
                     break;
                 } else {
